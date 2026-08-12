@@ -10,7 +10,7 @@ import tempfile
 
 # 設定 Google AI API 金鑰
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-system_instruction = "你是投信分析師，請使用繁體中文2000字以內，分項說明公司股市價量表現、融資融卷、內外資進出及財務資訊，並分析近期公司股市展望給投資人具體的專業建議!"
+system_instruction = "你是投信分析師，請使用繁體中文1000字以內，分項說明公司股市價量表現、融資融卷、內外資進出及財務資訊，並分析近期公司股市展望給投資人具體的專業建議!"
 thinking_config = genai.types.ThinkingConfig(thinking_budget=0) # thinking_budget = 0,  turn off thinking mode
 generation_config = genai.types.GenerateContentConfig(max_output_tokens=5000, temperature=0.1, top_p=0.2,
                                                       thinking_config=thinking_config,
@@ -97,7 +97,7 @@ def handle_message(event):
                     prompt = "請給專業建議!"               
                 # gemini-2.5-flash
                 completion = client.models.generate_content(
-                                    model="gemini-3.1-pro-preview",
+                                    model="gemini-2.5-flash",
                                     contents=[sample_doc, prompt],
                                     config=generation_config).text
             # 取得生成結果
